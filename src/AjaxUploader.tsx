@@ -18,7 +18,7 @@ import type {
 interface ParsedFileInfo {
   origin: RcFile;
   action: string;
-  data: object;
+  data: Record<string, unknown>;
   parsedFile: RcFile;
 }
 
@@ -158,7 +158,7 @@ class AjaxUploader extends Component<UploadProps> {
 
     // Get latest data
     const { data } = this.props;
-    let mergedData: object;
+    let mergedData: Record<string, unknown>;
     if (typeof data === 'function') {
       mergedData = await data(file);
     } else {
@@ -269,12 +269,12 @@ class AjaxUploader extends Component<UploadProps> {
       style,
       multiple,
       accept,
+      capture,
       children,
       directory,
       openFileDialogOnClick,
       onMouseEnter,
       onMouseLeave,
-      capture,
       ...otherProps
     } = this.props;
     const cls = classNames({
