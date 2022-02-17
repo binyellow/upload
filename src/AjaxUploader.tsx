@@ -34,6 +34,7 @@ class AjaxUploader extends Component<UploadProps> {
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { accept, directory } = this.props;
     const { files } = e.target;
+    // 上传文件夹才过滤 accept
     const acceptedFiles = [...files].filter(
       (file: RcFile) => !directory || attrAccept(file, accept),
     );
@@ -132,6 +133,7 @@ class AjaxUploader extends Component<UploadProps> {
     let transformedFile: BeforeUploadFileType | void = file;
     if (beforeUpload) {
       try {
+        // 如果beforeUpload返回false则不处理file数据了，是指不处理parse、action、data
         transformedFile = await beforeUpload(file, fileList);
       } catch (e) {
         // Rejection will also trade as false
@@ -165,6 +167,7 @@ class AjaxUploader extends Component<UploadProps> {
       mergedData = data;
     }
 
+    // 注意: beforeUpload还可以操作File对象
     const parsedData =
       // string type is from legacy `transformFile`.
       // Not sure if this will work since no related test case works with it
@@ -186,6 +189,7 @@ class AjaxUploader extends Component<UploadProps> {
     return {
       origin: file,
       data: mergedData,
+      // 整合beforeUpload返回的File和file，添加uid
       parsedFile: mergedParsedFile,
       action: mergedAction,
     };
