@@ -57,6 +57,7 @@ export default function upload(option: UploadRequestOption) {
 
   // eslint-disable-next-line no-undef
   if (option.file instanceof Blob) {
+    // https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/append#:~:text=Blob%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%BB%98%E8%AE%A4%E6%96%87%E4%BB%B6%E5%90%8D%E6%98%AF%C2%A0%22blob%22
     formData.append(option.filename, option.file, (option.file as any).name);
   } else {
     formData.append(option.filename, option.file);

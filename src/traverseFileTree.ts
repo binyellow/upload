@@ -39,6 +39,7 @@ const traverseFileTree = (files: InternalDataTransferItem[], callback, isAccepte
     // eslint-disable-next-line no-param-reassign
     item.path = path || '';
     if (item.isFile) {
+      // https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileEntry/file
       item.file(file => {
         if (isAccepted(file)) {
           // https://github.com/ant-design/ant-design/issues/16426
